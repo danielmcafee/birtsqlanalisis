@@ -71,4 +71,4 @@ SELECT
 FROM ocupados o
 WHERE o.validacao_restricao = 1
 
-ORDER BY nome_responsavel asc
+ORDER BY nome_responsavel DESC
