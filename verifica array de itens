@@ -1,0 +1,20 @@
+SELECT * FROM (
+    SELECT dataprocesso.procodigo, 
+           string_to_array(itensprocesso.itmconteudo, ',')::int[] AS itens,
+           dataprocesso.itmconteudo
+    FROM (
+        SELECT procodigo, itmconteudo
+        FROM wpt.tbprocessobloco
+        WHERE procodigo = 659443
+          AND itmconteudo LIKE '%/%'
+    ) dataprocesso
+    JOIN (
+        SELECT procodigo, itmconteudo, blccodigo
+        FROM wpt.tbprocessobloco
+        WHERE procodigo = 659443
+          AND itmcodigo = 10
+          AND blccodigo = 531
+    ) itensprocesso
+    ON itensprocesso.procodigo = dataprocesso.procodigo
+) AS resultado
+WHERE itens && ARRAY[2]
